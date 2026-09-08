@@ -1,0 +1,3 @@
+TODO: Write an EDA request that triggers your hooks and deterministic
+antidotes. Include a chart request whose interpretation needs traceable,
+deterministic evidence.

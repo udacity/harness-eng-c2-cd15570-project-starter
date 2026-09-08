@@ -1,0 +1,3 @@
+TODO: Write an EDA request that uses skills and tools, then creates enough
+trace evidence for a retrospective evaluator to assess at least five quality
+criteria after the primary task completes.

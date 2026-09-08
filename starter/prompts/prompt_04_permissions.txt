@@ -1,0 +1,3 @@
+TODO: Write an EDA request that uses an automatically allowed tool, an action
+requiring scoped permission, and a second protected action with different
+arguments.

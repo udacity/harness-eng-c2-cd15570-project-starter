@@ -1,0 +1,22 @@
+review_id,sale_id,sale_date,stock_id,brand,model,model_year,buyer_region,purchase_price_usd,days_to_sale,buyer_rating_5,review_text,would_buy_again,ownership_months,reported_issue,review_channel
+REV-9001,SALE-5001,2026-01-14,STK-100021,Aster,Vela,2024,Midwest,31995,18,5,"Roomy and confident in snow.",Yes,8,none,website
+REV-9002,SALE-5002,2026-01-16,STK-100034,Drift,Pulse,2023,West,"$28,500",31,4,"Quick but the cabin is noisy.",yes,6,road noise,Email
+REV-9003,SALE-5003,2026/01/20,STK-100055,Cinder,Solis,2025,Northeast,41200,12,6,"Charging is easy at home.",Y,4,none,web
+REV-9004,SALE-5004,2026-01-22,STK-100068,Aster,Lumen,2022,South,24150,45,three,"Efficient for commuting.",No,unknown,infotainment,Website
+REV-9005,SALE-5005,not recorded,STK-100079,Beacon,Atlas,2021,Midwest,18900,-3,4,"Good value for the price.",TRUE,11,none,phone
+REV-9006,SALE-5006,2026-02-02,STK-100082,Drift,Pulse,20X4,West,"31,250",27,4,"Fun handling but expensive insurance.",maybe,5,insurance cost,website
+REV-9007,SALE-5007,2026-02-04,STK-100093,Cinder,Solis,2024,NorthEast,39800,20,5,"Comfortable and quiet.",Yes,9,,Web
+REV-9008,SALE-5008,2026-02-08,STK-100101,Aster,Vela,2023,South,TBD,39,4,"Useful third row.",No,7,brake squeal,email
+REV-9009,SALE-5009,2026-02-10,STK-100117,Beacon,Atlas,2020,Midwest,-45000,52,2,"Too many repairs after purchase.",no,-2,transmission,phone
+REV-9010,SALE-5010,2026-02-12,STK-100126,Drift,Pulse,2025,West,36750,0,5,"Excellent acceleration.",Yes,3,none,website
+REV-9011,SALE-5011,2026-02-14,STK-100139,Cinder,Solis,2024,Northeast,40500,24,0,"Range is lower in winter.",N,10,battery range,website
+REV-9012,SALE-5012,2026-02-16,STK-100144,Aster,Lumen,2022,South,22900,61,4,"Great fuel economy.",Yes,,none,Email
+REV-9013,SALE-5013,2026-02-18,STK-100151,Beacon,Atlas,2021,Midwest,27500,thirty,5,"Tows my small trailer well.",yes,12,none,website
+REV-9014,SALE-5014,2026-02-20,STK-100166,Drift,Pulse,2023,west,34900,14,4,"Sporty but rear seats are tight.",No,6,rear seat space,web
+REV-9015,SALE-5015,2026-02-22,STK-100171,Cinder,Solis,2025,Northeast,42900,22,5,"The ride is smooth.",Yes,4,none,Website
+REV-9016,SALE-5016,2026-02-25,,Aster,Vela,2024,Midwest,31500,16,4,"Missing stock reference in this record.",Yes,9,none,phone
+REV-9017,SALE-5017,2026-02-27,STK-100188,Beacon,Atlas,2021,Midwest,20750,40,,"Cargo room is excellent.",TRUE,8,none,website
+REV-9018,SALE-5018,2026-03-01,STK-100194,Drift,Pulse,2024,West,36000,19,4,"Responsive steering.",1,5,none,website
+REV-9019,SALE-5019,2026-03-03,STK-100203,Cinder,Solis,2024,Northeast,40100,25,5,"App occasionally disconnects.",Yes,7,app disconnect,Web
+REV-9020,SALE-5020,2026-03-05,STK-100214,Aster,Lumen,2023,South,25800,36,4,"Practical and economical.",yes,10,None,email
+REV-9020,SALE-5020,2026-03-05,STK-100214,Aster,Lumen,2023,South,25800,36,4,"Practical and economical.",yes,10,None,email

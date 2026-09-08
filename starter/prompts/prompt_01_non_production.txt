@@ -1,0 +1,31 @@
+Act as a vehicle-market data analyst. Perform exploratory data analysis of the
+inventory and vehicle-history datasets to understand how performance, price,
+vehicle condition, and ownership costs are represented in this dealership data.
+This is an EDA task, not a vehicle-search or recommendation task: do not rank,
+filter for a buyer, or recommend any individual stock ID.
+
+First, load the `performance-handling` skill so you interpret horsepower and
+performance trade-offs carefully. Then create a short EDA plan and ask for my
+approval before performing the analysis.
+
+After I approve the plan:
+
+1. Inspect the structure and a small sample of both the inventory and history
+   datasets.
+2. Summarize inventory price_usd, mileage, and horsepower, and summarize the
+   historical reliability_score_10, owner_satisfaction_10, and
+   avg_annual_repair_cost_usd fields.
+3. Use categorical counts to describe inventory condition, segment, and
+   powertrain.
+4. Run a hypothesis test comparing price_usd for New versus Used inventory.
+   State the tested population, the result, and the limitation of the test.
+5. Create and display these charts for the full dataset populations:
+   - A scatter plot of inventory horsepower versus price_usd.
+   - A bar chart of average inventory price_usd by segment.
+   - A bar chart of average historical avg_annual_repair_cost_usd by segment.
+   Explain the visible pattern in each chart without claiming causation.
+6. Finish with three data-grounded EDA findings that refer to the charts and two
+   limitations or follow-up questions. Use performance-handling terminology
+   where it helps explain the findings, but do not make a purchase recommendation.
+
+Use only the available skills and tools. Do not invent dataset values.
