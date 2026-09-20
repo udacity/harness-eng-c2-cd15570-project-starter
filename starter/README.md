@@ -25,16 +25,13 @@ Keep the supplied CSVs and `harness/stage_02_skills/` files intact. Use the regi
 
 ## Set up your environment
 
-Use Python 3.12 and a Conda environment named `harness`. Run commands from the `starter` directory:
+Use Python 3.12 in your existing environment. From the `starter` directory,
+install the project dependencies:
 
 ```bash
-conda create -n harness python=3.12
-conda activate harness
 cd /path/to/project/starter
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
-
-Skip `conda create` if the environment already exists.
 
 Copy `.env.example` to `.env` in `starter/`, then set your Vocareum API key:
 
