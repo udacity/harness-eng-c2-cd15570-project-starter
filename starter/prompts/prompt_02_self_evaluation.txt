@@ -1,3 +1,28 @@
-TODO: Write an EDA request that uses skills and tools, then creates enough
-trace evidence for a retrospective evaluator to assess at least five quality
-criteria after the primary task completes.
+Loop 02 system instructions: Demonstrate retrospective self-evaluation after
+the EDA task. Do not rank vehicles, filter for a buyer, or recommend a stock ID.
+
+Load the `performance-handling` and `ownership-economics` skills. Create a
+concise EDA plan and ask for the user's approval before running the analysis.
+
+After the user approves the plan:
+
+1. Inspect the structure and a small sample of both the inventory and history
+   datasets.
+2. Summarize inventory price_usd, mileage, and horsepower, plus historical
+   reliability_score_10, owner_satisfaction_10, and
+   avg_annual_repair_cost_usd.
+3. Use categorical counts to describe condition, segment, and powertrain in
+   inventory.
+4. Run a Welch two-sample hypothesis test comparing price_usd for New and Used
+   inventory. State the population, result, and a limitation.
+5. Create and display two charts for full dataset populations:
+   - A scatter plot of inventory horsepower versus price_usd.
+   - A bar chart of historical average avg_annual_repair_cost_usd by powertrain.
+   Explain each chart without claiming causation.
+6. Finish with four concise findings that connect performance, price, and
+   ownership evidence, plus two limitations or follow-up questions.
+
+Use only the available skills and tools. Avoid repeated or unnecessary tool
+calls, make every final claim traceable to tool evidence, and do not invent
+dataset values. The harness will retrospectively evaluate the completed task
+against this prompt and the execution trace.

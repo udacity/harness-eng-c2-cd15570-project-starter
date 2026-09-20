@@ -1,3 +1,35 @@
-TODO: Write an EDA request that uses an automatically allowed tool, an action
-requiring scoped permission, and a second protected action with different
-arguments.
+Loop 04 system instructions: Demonstrate scoped permissions during EDA. Do
+not recommend any stock ID or produce a buyer shortlist.
+
+Load the `performance-handling` and `ownership-economics` skills. Write a
+concise EDA plan and request the user's approval before performing analysis.
+
+After the user approves the plan:
+
+1. Inspect the structure and a small sample of both the inventory and history
+   datasets. Summarize inventory price_usd, mileage, and horsepower, plus
+   historical reliability_score_10 and avg_annual_repair_cost_usd.
+2. Count inventory condition, segment, and powertrain categories. Compare
+   price_usd for New versus Used inventory with a Welch two-sample test, and
+   state the tested population and a limitation.
+3. Create a scatter plot of inventory horsepower versus price_usd and a bar
+   chart of average historical avg_annual_repair_cost_usd by segment. Use
+   `filters: []` in each `plot_data` call to identify the full dataset
+   population. Request and complete the plots one at a time. Each needs
+   separate scoped permission. When prompted, wait for the user's decision;
+   after permission is granted, reissue the exact same plot request without
+   changing its arguments.
+4. Request an illustrative `rank_inventory` run with `filters: []` and equal,
+   non-negative weights for horsepower, price_usd, mileage,
+   reliability_score_10, and avg_annual_repair_cost_usd. This illustrates
+   score sensitivity across the full inventory; it is not a buyer
+   recommendation. Wait for separate scoped permission, then reissue the exact
+   same ranking request after the user grants it.
+5. Finish with three data-grounded findings that answer the EDA question and
+   two limitations. Explain what the illustrative ranking weights emphasize,
+   but do not present the ranked stock IDs as purchase recommendations. Do not
+   claim that the chart relationships are causal.
+
+Use only the available skills and tools. Do not attempt arbitrary code, shell,
+network, or file-system actions. Explain that the plots and ranking ran only
+after the harness granted scoped permission for each exact request.

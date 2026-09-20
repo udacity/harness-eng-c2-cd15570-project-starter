@@ -5,8 +5,7 @@ from .stage_00_runtime import (
     AppConfig,
     RuntimeState,
     build_system_prompt,
-    create_azure_client,
-    create_openai_client,
+    create_llm_client,
 )
 
 __all__ = [
@@ -14,6 +13,5 @@ __all__ = [
     "HarnessLoop",
     "RuntimeState",
     "build_system_prompt",
-    "create_azure_client",
-    "create_openai_client",
+    "create_llm_client",
 ]

@@ -1,9 +1,4 @@
 __pycache__/
 .pytest_cache/
 .DS_Store
-outputs/*.txt
-outputs/*.json
-outputs/evaluations/*
-!outputs/evaluations/.gitkeep
-outputs/plots/*
-!outputs/plots/.gitkeep
+.env

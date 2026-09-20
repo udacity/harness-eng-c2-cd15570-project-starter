@@ -1,6 +1,5 @@
 openai
-azure-identity
-azure-keyvault-secrets
+python-dotenv
 pandas
 scipy
 matplotlib

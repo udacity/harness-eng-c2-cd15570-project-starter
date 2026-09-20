@@ -1,0 +1,8 @@
+Cedar Lane Motors asks: What patterns and trade-offs in performance, price,
+vehicle condition, and ownership costs appear in the dealership's inventory
+and vehicle-history data?
+
+Use the inventory and vehicle-history datasets to answer this EDA question.
+Create a concise analysis plan and ask for my approval before inspecting the
+data. Ground the answer in tool evidence, explain important limitations, and
+do not make a buyer recommendation.

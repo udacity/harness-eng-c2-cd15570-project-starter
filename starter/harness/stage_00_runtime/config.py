@@ -1,4 +1,4 @@
-"""Application paths and Azure defaults."""
+"""Application paths and Vocareum OpenAI client setup."""
 
 from __future__ import annotations
 
@@ -6,15 +6,33 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
+from dotenv import load_dotenv
+from openai import OpenAI
 
-DEFAULT_API_VERSION = "2025-03-01-preview"
 HARNESS_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = HARNESS_DIR.parent
 
 
+# =============================================================================
+# Load LLM settings from .env and create the Vocareum OpenAI client
+# =============================================================================
+def create_llm_client() -> tuple[OpenAI, str, str]:
+    load_dotenv(BASE_DIR / ".env")
+
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    if not api_key:
+        raise SystemExit(
+            f"Set OPENAI_API_KEY in {BASE_DIR / '.env'} before running the harness."
+        )
+
+    model = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+    base_url = "https://openai.vocareum.com/v1"
+    client = OpenAI(base_url=base_url, api_key=api_key)
+    return client, model, base_url
+
+
 @dataclass(frozen=True)
 class AppConfig:
-    vault_url: str
     inventory_file: Path
     history_file: Path
     sales_reviews_file: Path
@@ -26,10 +44,6 @@ class AppConfig:
     def from_environment(cls) -> "AppConfig":
         output_dir = BASE_DIR / "outputs"
         return cls(
-            vault_url=os.environ.get(
-                "AZURE_KEY_VAULT_URL",
-                "https://secrets-pk.vault.azure.net/",
-            ),
             inventory_file=Path(
                 os.environ.get(
                     "INVENTORY_FILE",

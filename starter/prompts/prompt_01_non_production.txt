@@ -1,14 +1,11 @@
-Act as a vehicle-market data analyst. Perform exploratory data analysis of the
-inventory and vehicle-history datasets to understand how performance, price,
-vehicle condition, and ownership costs are represented in this dealership data.
-This is an EDA task, not a vehicle-search or recommendation task: do not rank,
-filter for a buyer, or recommend any individual stock ID.
+Loop 01 system instructions: Demonstrate the foundational non-production
+agent loop. Do not rank vehicles, filter for a buyer, or recommend a stock ID.
 
-First, load the `performance-handling` skill so you interpret horsepower and
-performance trade-offs carefully. Then create a short EDA plan and ask for my
-approval before performing the analysis.
+Load the `performance-handling` skill so you interpret horsepower and
+performance trade-offs carefully. Create a short EDA plan and ask for the
+user's approval before performing the analysis.
 
-After I approve the plan:
+After the user approves the plan:
 
 1. Inspect the structure and a small sample of both the inventory and history
    datasets.

@@ -1,4 +1,4 @@
-"""TODO: Evaluate one completed harness run from saved evidence."""
+"""Loop 02 component: make a separate model call that reviews finished evidence."""
 
 from __future__ import annotations
 
@@ -13,9 +13,11 @@ REQUIRED_KEYS = {
     "workflow_adjustments",
 }
 
-EVALUATION_INSTRUCTIONS = """TODO: Write evaluator instructions that score at
-least five observable quality checks using only the supplied prompt, trace,
-tool evidence, and final response. Return validated JSON with REQUIRED_KEYS."""
+EVALUATION_INSTRUCTIONS = """TODO: Tell the evaluator to judge goal fulfillment,
+loop or stall behavior, tool efficiency, and log sufficiency using only the
+supplied evidence. Require JSON with exactly the keys in REQUIRED_KEYS.
+task_status must be SUCCESS, FAILED, or PARTIAL_SUCCESS; efficiency_score
+must be a number from 0 to 1. Do not ask for private model reasoning."""
 
 
 def run_retrospective_evaluation(
@@ -28,6 +30,11 @@ def run_retrospective_evaluation(
     task_result: str,
 ) -> dict[str, Any]:
     """Return validated retrospective JSON for one finished task."""
-    # TODO: Build an evidence payload, make a second model call, validate the
-    # exact schema, and return a normalized failure object on evaluator errors.
+    # TODO 1: Build an evidence object containing original_prompt,
+    # execution_trace, tool_run_log, final_output, and task_result.
+    # TODO 2: Call client.responses.create with deployment, these evaluator
+    # instructions, and the serialized evidence. This must be a NEW call,
+    # separate from the primary EDA conversation.
+    # TODO 3: Parse review.output_text, verify the exact schema and value
+    # constraints, and return a useful structured error on malformed output.
     raise NotImplementedError("Implement retrospective evaluation.")

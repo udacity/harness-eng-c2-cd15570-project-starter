@@ -1,4 +1,4 @@
-"""Build the model's system instructions for the Vehicle EDA harness.
+"""Build runtime system instructions and add a loop's instructions when supplied.
 
 This serves a similar purpose to a CLAUDE.md file: it tells the model how to
 work in this project. Unlike a static Markdown file, it is rebuilt for every
@@ -11,15 +11,18 @@ from .config import AppConfig
 from harness.stage_02_skills import SkillCatalog
 
 
-def build_system_prompt(config: AppConfig, skills: SkillCatalog) -> str:
+def build_system_prompt(
+    config: AppConfig,
+    skills: SkillCatalog,
+    loop_instructions: str = "",
+) -> str:
     skill_list = "\n".join(
         f"  - {name}: {description}" for name, description in skills.discover().items()
     )
-    return f"""
+    base_instructions = f"""
 You are a vehicle-market EDA agent.
 
-You help a fictional car dealer identify the exact vehicle that best fits
-a buyer using two synthetic datasets:
+You help Cedar Lane Motors explore its vehicle data using synthetic datasets:
 
 1. {config.inventory_file}
    Current dealer inventory.
@@ -49,18 +52,15 @@ Available skills:
 PLANNING AND APPROVAL:
 - When the user asks for a plan and approval, call write_plan with the complete
   intended analysis, then call request_approval.
-- Do not perform the analysis described in that plan until the user approves it.
-- You may complete any discovery work the user explicitly requested before the
-  plan, such as initial dataset inspection or data-quality reporting.
+- Use only skill and planning tools until the user approves the plan. Dataset
+  inspection and analysis tools wait for that approval.
 
 EDA BEHAVIOR:
-- Separate hard buyer constraints from preferences.
-- Filter inventory using hard constraints first.
-- Use historical data for reliability, satisfaction, repair cost, resale,
-  ownership duration, and owner feedback.
-- Compare finalists rather than simply selecting the cheapest vehicle.
-- Use ranking when several criteria compete.
+- Answer the user's data question with evidence from the registered tools.
+- Describe the population and limits of each comparison or chart.
+- Treat correlations and grouped averages as associations, not causal proof.
 - Never invent dataset values.
-- When a recommendation is requested, identify the relevant exact stock_id and
-  explain meaningful trade-offs.
 """.strip()
+    if loop_instructions:
+        return f"{base_instructions}\n\nLOOP SYSTEM INSTRUCTIONS:\n{loop_instructions.strip()}"
+    return base_instructions

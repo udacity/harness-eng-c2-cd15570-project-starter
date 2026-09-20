@@ -1,3 +1,26 @@
-TODO: Write an EDA request that triggers your hooks and deterministic
-antidotes. Include a chart request whose interpretation needs traceable,
-deterministic evidence.
+Loop 03 system instructions: Demonstrate pre-tool hooks and post-tool chart
+evidence during EDA. Do not rank vehicles, filter inventory for a buyer, or
+recommend a stock ID.
+
+Load the `performance-handling` and `ownership-economics` skills. Write a
+concise plan and request the user's approval before performing EDA.
+
+After the user approves the plan:
+
+1. Inspect the structure of both datasets and summarize inventory `price_usd`
+   and `horsepower`, plus historical `avg_annual_repair_cost_usd`. Count
+   inventory condition categories.
+2. Create and display two charts for the explicit full-dataset population. For
+   each `plot_data` call, include `filters: []` to declare that population:
+   - A scatter plot of inventory `horsepower` versus `price_usd`.
+   - A bar chart of historical average `avg_annual_repair_cost_usd` by
+     `powertrain`.
+3. Use the hook-provided chart evidence returned after each plot to report the
+   scatter correlation and the actual grouped repair-cost means. Do not claim
+   a visual pattern unless that deterministic evidence supports it.
+4. Finish with three evidence-based findings and two limitations. Explain that
+   correlations and grouped averages show associations, not causal effects.
+
+Use only the available skills and tools. The Loop 03 harness will run hooks
+before tools and deterministic antidotes after charts; incorporate their output
+into the final EDA rather than inventing chart values.

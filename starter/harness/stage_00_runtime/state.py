@@ -21,6 +21,7 @@ class RuntimeState:
     tool_run_log: list[dict[str, Any]] = field(default_factory=list)
     execution_trace: list[dict[str, Any]] = field(default_factory=list)
     plan: list[dict[str, Any]] = field(default_factory=list)
+    plan_approval_pending: bool = False
     approval_required: bool = False
     approval_message: str | None = None
     permission_required: bool = False
@@ -32,6 +33,7 @@ class RuntimeState:
         self.tool_run_log.clear()
         self.execution_trace.clear()
         self.plan.clear()
+        self.plan_approval_pending = False
         self.approval_required = False
         self.approval_message = None
         self.permission_required = False
