@@ -1,5 +1,5 @@
 """TODO: Least-privilege permission policy for Loop 04."""
 
-from .policy import PermissionPolicy
+from .policy import PermissionDecision, PermissionPolicy
 
-__all__ = ["PermissionPolicy"]
+__all__ = ["PermissionDecision", "PermissionPolicy"]

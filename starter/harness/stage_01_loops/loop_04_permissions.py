@@ -12,6 +12,9 @@ class PermissionsLoop(HarnessLoop):
     """A grant applies to one exact tool name and argument object."""
 
     def __init__(self, *args: Any, **kwargs: Any):
+        # Scoped approval and exact-call replay add model round trips beyond the
+        # foundational loop's normal budget.
+        kwargs.setdefault("max_loop_iterations", 30)
         super().__init__(*args, **kwargs)
         self.permissions = PermissionPolicy()
 
@@ -28,12 +31,15 @@ class PermissionsLoop(HarnessLoop):
         self, tool_name: str, tool_input: dict[str, Any]
     ) -> str | None:
         # TODO: Ask self.permissions.decide for allow, require_approval, or
-        # deny. Log every decision. For deny, return a DENIED message. For
-        # require_approval, save {"tool": tool_name, "input": tool_input} in
-        # state.permission_request, set state.permission_required, and return
-        # a BLOCKED message. Use self._same_request against
-        # state.granted_permission first: on a match, clear that one-use grant
-        # and let the handler execute.
+        # deny. Log every check as {"component": "permission_check", "tool":
+        # tool_name, "input": tool_input, "decision": decision, "reason":
+        # reason}, then print exactly "PERMISSION CHECK: <tool_name> ->
+        # <decision>". Use self._same_request against state.granted_permission
+        # before blocking a protected call: on a match, clear that one-use grant
+        # and let the handler execute. For deny, return a DENIED message. For
+        # require_approval without a matching grant, save {"tool": tool_name,
+        # "input": tool_input} in state.permission_request, set
+        # state.permission_required, and return a BLOCKED message.
         raise NotImplementedError("Implement the Loop 04 permission check.")
 
     def pause_status(self) -> str | None:
@@ -44,7 +50,10 @@ class PermissionsLoop(HarnessLoop):
     def grant_pending_permission(self) -> None:
         # TODO: Called by main.py only after the user approves. Move the
         # pending request into state.granted_permission and clear the pending
-        # flag. The grant is consumed by the matching before_tool_execution.
+        # flag. Log {"component": "permission_grant", "tool": tool_name,
+        # "input": tool_input, "event": "grant", "scope": "one_exact_call"}.
+        # Then print exactly "PERMISSION GRANTED: <tool_name>". The grant is
+        # consumed by the matching before_tool_execution.
         pass
 
     def resume_after_permission(

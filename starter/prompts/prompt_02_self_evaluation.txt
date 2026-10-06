@@ -18,9 +18,13 @@ After the user approves the plan:
 5. Create and display two charts for full dataset populations:
    - A scatter plot of inventory horsepower versus price_usd.
    - A bar chart of historical average avg_annual_repair_cost_usd by powertrain.
-   Explain each chart without claiming causation.
+   Treat the charts as saved artifacts. Describe only findings supported by
+   numeric tool output; do not claim to have visually inspected a chart or infer
+   a relationship from its file path.
 6. Finish with four concise findings that connect performance, price, and
-   ownership evidence, plus two limitations or follow-up questions.
+   ownership evidence returned by tools, plus two limitations or follow-up
+   questions. You may identify the related chart artifacts, but do not use their
+   file paths as evidence.
 
 Use only the available skills and tools. Avoid repeated or unnecessary tool
 calls, make every final claim traceable to tool evidence, and do not invent

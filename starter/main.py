@@ -83,7 +83,7 @@ def run_harness(
     output_file: Path,
     tool_log_file: Path,
     evaluation_file: Path,
-) -> str:
+) -> str | None:
     # Start a fresh trace and approval state for this request.
     state.tool_run_log.clear()
     state.execution_trace.clear()
@@ -115,7 +115,7 @@ def run_harness(
         answer = input(prompt).strip().lower()
         if answer not in {"y", "yes", "approve", "approved"}:
             print("Approval rejected. Analysis stopped.")
-            return result["response"].id
+            return previous_response_id
         if result["status"] == "approval_required":
             state.tool_run_log.append({
                 "component": "plan_approval",

@@ -117,10 +117,9 @@ class HarnessLoop:
                 tool_input, output = {}, f"ERROR invalid tool arguments: {exc}"
             else:
                 handler = self.handlers.dispatch.get(tool_name)
-                if handler is None:
-                    output = f"ERROR unknown tool '{tool_name}'"
-                elif (
-                    tool_name in self.registry.execution
+                if (
+                    handler is not None
+                    and tool_name in self.registry.execution
                     and (
                         self.state.plan_approval_pending
                         or self.state.approval_required
@@ -133,7 +132,12 @@ class HarnessLoop:
                     )
                 else:
                     hook_block = self.before_tool_execution(tool_name, tool_input)
-                    output = hook_block if hook_block else handler(tool_input)
+                    if hook_block:
+                        output = hook_block
+                    elif handler is None:
+                        output = f"ERROR unknown tool '{tool_name}'"
+                    else:
+                        output = handler(tool_input)
 
             component = (
                 "skill" if tool_name in self.registry.knowledge
