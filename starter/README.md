@@ -86,11 +86,15 @@ After a chart runs, add deterministic population details and numeric support suc
 
 Complete `harness/stage_06_permissions/policy.py` and `harness/stage_01_loops/loop_04_permissions.py`. Return an explicit `allow`, `require_approval`, or `deny` decision with a reason. Allow bounded read-only EDA, require approval for `plot_data` and `rank_inventory`, and deny unsupported actions.
 
-Before a protected call executes, pause and display its tool name and exact arguments. Approving one request grants one use of that exact request only; changed arguments require a new decision. Record the decisions and grants in the trace. The supplied prompt should exercise allowed actions and separate approvals for plots and ranking. A denied action is not required in the submitted prompt run.
+Before a protected call executes, pause and display its tool name and exact arguments. Approving one request grants one use of that exact request only; changed arguments require a new decision.
+
+Record every decision in `tool_run_log` as `{"component": "permission", "tool": ..., "input": ..., "decision": ..., "reason": ...}`, where `decision` is `allow`, `require_approval`, or `deny`. When the user grants a request, add an entry with `"decision": "granted"`; when the re-issued call consumes that grant, add `"grant_used": true` to its `require_approval` entry. Print `PERMISSION CHECK: <tool> -> <decision>` for every check and `PERMISSION GRANTED: <tool>` for every grant. `tests/test_permissions.py` asserts this wording and these keys.
+
+The supplied prompt should exercise allowed actions and separate approvals for plots and ranking. The model only calls registered tools, so a `deny` decision is not expected in the live run; `tests/test_permissions.py` exercises it with an unknown tool.
 
 ### 5. Verify and preserve the evidence
 
-Run `pytest` while implementing the provided contracts. Baseline and prompt-routing tests should pass at the start; tests for Loops 02–04 expose unfinished TODOs and should pass after you implement them. Also inspect the live run evidence below. Keep the four answers, four prompt-file traces, retrospective JSON, relevant chart images, and a short comparison that cites what each component did.
+Run `python -m pytest` from `starter/` while implementing the provided contracts. Baseline and prompt-routing tests should pass at the start; tests for Loops 02–04 expose unfinished TODOs and should pass after you implement them. Also inspect the live run evidence below. Keep the four answers, four prompt-file traces, retrospective JSON, relevant chart images, and a short comparison saved as `outputs/comparison.md` that cites what each component did.
 
 ## Run and show the loops
 
@@ -142,7 +146,7 @@ Add `--loop-pause` to any command when you want to stop after each model cycle a
 
 `RAW PROMPT TO MODEL` shows the system instructions and current input sent to the model. On the first cycle, the input is the user question; on later cycles, it contains observations from tools or approvals. `RAW MODEL OUTPUT` includes written text and structured tool calls. `MODEL TEXT` is only the written part, so it can be empty when the model returned tool calls. Under `COMPONENTS EXECUTED`, inspect the tool arguments, status, and full result. The harness sends that result to the model for the next cycle. The loop finishes when the model returns an answer without another tool call.
 
-For Loop 03, look for a pre-tool check followed by a decision to continue, then `HOOK post-tool evidence: plot_data` and `ANTIDOTE plot-evidence: completed`. The numeric `--- HOOK EVIDENCE ---` is returned to the model and saved in the trace. For Loop 04, look for `PERMISSION CHECK` and `PERMISSION GRANTED` for each protected call.
+For Loop 03, look for a pre-tool check followed by a decision to continue, then `HOOK post-tool evidence: plot_data` and `ANTIDOTE plot-evidence: completed`. The numeric `--- HOOK EVIDENCE ---` is returned to the model and saved in the trace. For Loop 04, look for `PERMISSION CHECK: <tool> -> require_approval` and `PERMISSION GRANTED: <tool>` for each protected call.
 
 ## Submit your evidence
 
@@ -152,8 +156,8 @@ For Loop 03, look for a pre-tool check followed by a decision to continue, then 
 - [ ] Loop 01 shows skill loading, plan approval, registered EDA tool use, and its answer.
 - [ ] Loop 02 has a separate, structured retrospective evaluation JSON artifact.
 - [ ] Loop 03 has visible hook decisions and deterministic numeric chart evidence used in its answer.
-- [ ] Loop 04 has allowed decisions and separate exact-request plot and ranking approvals.
-- [ ] A short comparison names each loop's added control, cites its terminal or artifact evidence, and explains its observed effect.
+- [ ] Loop 04 has `allow` decisions and separate `require_approval` and `granted` entries for each plot and the ranking.
+- [ ] `outputs/comparison.md` names each loop's added control, cites its terminal or artifact evidence, and explains its observed effect.
 
 Optional extensions include an ablation comparison, a failure log, token or cost accounting, a data-quality analysis of `vehicle_sales_reviews.csv`, or a test that changed protected arguments cannot reuse a grant. Run `data_quality_report` before statistical analysis of the sales/review dataset; it contains intentional recording and standardization issues.
 
@@ -186,4 +190,4 @@ starter/
 - **Loop 02, 03, or 04 raises `NotImplementedError`:** Complete that loop's TODOs and rerun it. A selected prompt file does not implement its component.
 - **No plan approval prompt:** Check that the request asks for a plan and approval and that the plan gate pauses tool execution.
 - **A chart appears to pause the run:** Close the plot window to let the loop continue.
-- **No final artifact after rejecting approval:** A rejected plan or protected call ends that request before a completed answer is saved.
+- **No final artifact after rejecting approval:** A rejected plan or protected call ends that request before a completed answer is saved. In interactive mode you can ask a new question afterwards.

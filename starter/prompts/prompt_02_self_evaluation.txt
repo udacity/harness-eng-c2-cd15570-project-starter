@@ -18,7 +18,9 @@ After the user approves the plan:
 5. Create and display two charts for full dataset populations:
    - A scatter plot of inventory horsepower versus price_usd.
    - A bar chart of historical average avg_annual_repair_cost_usd by powertrain.
-   Explain each chart without claiming causation.
+   plot_data returns only the saved file path, not the chart's values. For
+   each chart, state what it compares and its population; do not describe a
+   visual pattern unless another tool result supplied the numbers behind it.
 6. Finish with four concise findings that connect performance, price, and
    ownership evidence, plus two limitations or follow-up questions.
 

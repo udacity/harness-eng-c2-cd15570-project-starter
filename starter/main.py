@@ -115,7 +115,9 @@ def run_harness(
         answer = input(prompt).strip().lower()
         if answer not in {"y", "yes", "approve", "approved"}:
             print("Approval rejected. Analysis stopped.")
-            return result["response"].id
+            # The paused response holds a tool call that never got an output;
+            # continuing the conversation from it would fail on the next request.
+            return previous_response_id
         if result["status"] == "approval_required":
             state.tool_run_log.append({
                 "component": "plan_approval",
@@ -148,6 +150,9 @@ def run_harness(
     if evaluation := result.get("evaluation"):
         write_evaluation_artifact(evaluation, evaluation_file)
         print(f"Saved retrospective evaluation to: {evaluation_file}")
+    if result["status"] == "iteration_limit":
+        # A capped response also ends with unanswered tool calls.
+        return previous_response_id
     return response.id
 
 

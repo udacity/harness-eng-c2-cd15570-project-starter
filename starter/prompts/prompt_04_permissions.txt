@@ -15,16 +15,18 @@ After the user approves the plan:
 3. Create a scatter plot of inventory horsepower versus price_usd and a bar
    chart of average historical avg_annual_repair_cost_usd by segment. Use
    `filters: []` in each `plot_data` call to identify the full dataset
-   population. Request and complete the plots one at a time. Each needs
-   separate scoped permission. When prompted, wait for the user's decision;
-   after permission is granted, reissue the exact same plot request without
-   changing its arguments.
+   population. Call plot_data for one chart at a time. The harness pauses
+   each protected call and asks the user for scoped permission itself, so do
+   not call request_approval for plots or rankings; request_approval is only
+   for the plan. After permission is granted, reissue the exact same plot
+   request without changing its arguments.
 4. Request an illustrative `rank_inventory` run with `filters: []` and equal,
    non-negative weights for horsepower, price_usd, mileage,
    reliability_score_10, and avg_annual_repair_cost_usd. This illustrates
    score sensitivity across the full inventory; it is not a buyer
-   recommendation. Wait for separate scoped permission, then reissue the exact
-   same ranking request after the user grants it.
+   recommendation. Call rank_inventory directly; the harness asks for its
+   separate scoped permission. Reissue the exact same ranking request after
+   the user grants it.
 5. Finish with three data-grounded findings that answer the EDA question and
    two limitations. Explain what the illustrative ranking weights emphasize,
    but do not present the ranked stock IDs as purchase recommendations. Do not

@@ -30,4 +30,5 @@ class AntidoteRegistry:
         # TODO: Return no evidence for BLOCKED or DENIED calls. For plot_data,
         # call plotting.build_evidence(handlers, tool_input) and return a
         # ("plot-evidence", evidence) pair. A tool ERROR is not chart evidence.
-        return []
+        # Return [] for every other tool.
+        raise NotImplementedError("Return post-tool chart evidence.")

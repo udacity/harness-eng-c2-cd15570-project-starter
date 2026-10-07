@@ -24,7 +24,7 @@ class HarnessLoop:
         handlers: ToolHandlers,
         registry: ToolRegistry,
         state: RuntimeState,
-        max_loop_iterations: int = 20,
+        max_loop_iterations: int = 30,
         loop_pause: bool = False,
     ):
         self.client = client
@@ -117,9 +117,7 @@ class HarnessLoop:
                 tool_input, output = {}, f"ERROR invalid tool arguments: {exc}"
             else:
                 handler = self.handlers.dispatch.get(tool_name)
-                if handler is None:
-                    output = f"ERROR unknown tool '{tool_name}'"
-                elif (
+                if (
                     tool_name in self.registry.execution
                     and (
                         self.state.plan_approval_pending
@@ -132,8 +130,15 @@ class HarnessLoop:
                         "approves the current plan."
                     )
                 else:
+                    # Every call, including an unknown tool name, reaches the
+                    # hook first so production loops can block or deny it.
                     hook_block = self.before_tool_execution(tool_name, tool_input)
-                    output = hook_block if hook_block else handler(tool_input)
+                    if hook_block:
+                        output = hook_block
+                    elif handler is None:
+                        output = f"ERROR unknown tool '{tool_name}'"
+                    else:
+                        output = handler(tool_input)
 
             component = (
                 "skill" if tool_name in self.registry.knowledge

@@ -9,7 +9,7 @@ def validate(tool_input: dict[str, Any]) -> str | None:
     """Return a blocking reason when the chart population is not declared."""
     # TODO: Require the filters key. An empty list is an explicit full-dataset
     # population and must be accepted; a missing key is not.
-    return None
+    raise NotImplementedError("Validate the chart population.")
 
 
 def build_evidence(handlers: Any, tool_input: dict[str, Any]) -> str:

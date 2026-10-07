@@ -28,24 +28,33 @@ class PermissionsLoop(HarnessLoop):
         self, tool_name: str, tool_input: dict[str, Any]
     ) -> str | None:
         # TODO: Ask self.permissions.decide for allow, require_approval, or
-        # deny. Log every decision. For deny, return a DENIED message. For
-        # require_approval, save {"tool": tool_name, "input": tool_input} in
-        # state.permission_request, set state.permission_required, and return
-        # a BLOCKED message. Use self._same_request against
-        # state.granted_permission first: on a match, clear that one-use grant
-        # and let the handler execute.
+        # deny, and handle every decision the same visible way:
+        #   - print f"PERMISSION CHECK: {tool_name} -> {decision}"
+        #   - append to state.tool_run_log:
+        #     {"component": "permission", "tool": tool_name,
+        #      "input": tool_input, "decision": decision, "reason": reason}
+        # For deny, return a DENIED message. For require_approval, first use
+        # self._same_request against state.granted_permission: on a match,
+        # clear that one-use grant, add "grant_used": True to the log entry,
+        # and return None so the handler executes. Otherwise save
+        # {"tool": tool_name, "input": tool_input} in state.permission_request,
+        # set state.permission_required, and return a BLOCKED message.
+        # tests/test_permissions.py asserts this wording and these log keys.
         raise NotImplementedError("Implement the Loop 04 permission check.")
 
     def pause_status(self) -> str | None:
         # TODO: Return "permission_required" while a protected request waits
         # for a human decision; otherwise return None.
-        return None
+        raise NotImplementedError("Report whether a permission decision is pending.")
 
     def grant_pending_permission(self) -> None:
         # TODO: Called by main.py only after the user approves. Move the
         # pending request into state.granted_permission and clear the pending
         # flag. The grant is consumed by the matching before_tool_execution.
-        pass
+        # Print f"PERMISSION GRANTED: {tool}" and append to state.tool_run_log
+        # {"component": "permission", "tool": tool, "input": tool_input,
+        #  "decision": "granted"} so the trace shows each one-use grant.
+        raise NotImplementedError("Grant the pending permission.")
 
     def resume_after_permission(
         self,

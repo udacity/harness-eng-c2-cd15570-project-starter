@@ -20,9 +20,12 @@ After the user approves the plan:
    - A scatter plot of inventory horsepower versus price_usd.
    - A bar chart of average inventory price_usd by segment.
    - A bar chart of average historical avg_annual_repair_cost_usd by segment.
-   Explain the visible pattern in each chart without claiming causation.
-6. Finish with three data-grounded EDA findings that refer to the charts and two
-   limitations or follow-up questions. Use performance-handling terminology
+   plot_data returns only the saved file path, not the chart's values. For
+   each chart, state what it compares and its population; do not describe a
+   visual pattern unless another tool result supplied the numbers behind it.
+6. Finish with three data-grounded EDA findings and two limitations or
+   follow-up questions. Name the limitation that this loop cannot read values
+   from its own charts. Use performance-handling terminology
    where it helps explain the findings, but do not make a purchase recommendation.
 
 Use only the available skills and tools. Do not invent dataset values.

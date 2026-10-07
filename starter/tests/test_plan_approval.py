@@ -213,6 +213,36 @@ class PlanApprovalTests(unittest.TestCase):
             ))
             ask.assert_called_once_with("Approve plan? [y/N]: ")
 
+    def test_rejected_plan_keeps_previous_conversation_id(self):
+        loop, state, executed = self.make_loop([])
+
+        def pause_for_plan(*_):
+            state.plan = [{"id": 1, "task": "Inspect inventory."}]
+            return {
+                "status": "approval_required",
+                "response": response("r1", call=("request_approval", {})),
+                "tool_results": [],
+                "loop_number": 1,
+            }
+
+        loop.agent_loop = pause_for_plan
+        with TemporaryDirectory() as temp_dir, patch("builtins.input", return_value="n"):
+            with redirect_stdout(io.StringIO()):
+                result_id = run_harness(
+                    loop,
+                    state,
+                    "Write a plan and ask for my approval before analysis.",
+                    "previous-turn",
+                    Path(temp_dir) / "answer.md",
+                    Path(temp_dir) / "tools.json",
+                    Path(temp_dir) / "evaluation.json",
+                )
+
+        # The rejected response has an unanswered tool call, so the next
+        # interactive request must continue from the earlier turn instead.
+        self.assertEqual(result_id, "previous-turn")
+        self.assertEqual(executed, [])
+
 
 if __name__ == "__main__":
     unittest.main()
